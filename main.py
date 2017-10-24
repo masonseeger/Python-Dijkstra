@@ -18,7 +18,9 @@ def read_input(file_name):
 
     return edge_to_cost
 
-# NOT FINISHED
+# To change input file and output file,
+# change the arguments in line 25 and line 31
+# and change the terminus in line 31
 def main():
     edge_to_cost = read_input("input2.txt")
     my_digraph = DiGraph(edge_to_cost)
