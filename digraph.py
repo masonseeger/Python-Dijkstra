@@ -2,6 +2,8 @@ from math import inf
 from terminaltables import AsciiTable
 from timeit import default_timer as timer
 
+#This method takes in the set of distances of the nodes and the set of nodes we have already looked through.
+#The method finds the node that has the shortest distance to it.
 def get_min_dist(node_to_dist, S):
     temp_result = -1
     temp_min = inf
@@ -12,6 +14,8 @@ def get_min_dist(node_to_dist, S):
 
     return temp_result
 
+#This method takes in the node set, the set of predecesors to each node, and their distance to each node
+#This methos returns a table representing the current progress of the algorithm
 def generate_table(node_set, node_to_pred, node_to_dist):
     table_data = [["v", "pred(v)", "dis(v)"]]
     for node in node_set:
@@ -19,7 +23,10 @@ def generate_table(node_set, node_to_pred, node_to_dist):
 
     return list(map(list, zip(*table_data)))
 
+#This class runs the algorithm
 class DiGraph:
+    
+    #Initializes the class DiGraph
     def __init__(self, edge_to_cost={}):
         self.edge_to_cost = edge_to_cost
 
@@ -33,7 +40,9 @@ class DiGraph:
                 self.node_to_neighbor[tail] = {head}
             else:
                 self.node_to_neighbor[tail].add(head)
-
+    
+    #This method takes in self, The set of nodes we have already looked through, the set of pred to each nodes, and the set of dist to each node
+    #This updates the pred and distance for nodes when necessary and returns the updated sets
     def dijkstra_iteration(self, S, node_to_pred, node_to_dist):
         temp_node = get_min_dist(node_to_dist, S)
 
@@ -51,7 +60,8 @@ class DiGraph:
                 node_to_dist[node] = temp_dist
 
         return S, node_to_pred, node_to_dist
-
+    
+    #This method initiates the algorithm and sets the source and terminus for the algorithm
     def dijkstra(self, source, terminus, early_stop=True, file_name="output.txt"):
         start = timer()
 
